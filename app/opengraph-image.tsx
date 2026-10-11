@@ -1,0 +1,8 @@
+import { ImageResponse } from "next/og";
+
+export const alt="PixelForge Studio — digital with a little more thought";
+export const size={width:1200,height:630};
+export const contentType="image/png";
+export default function OpenGraphImage() {
+  return new ImageResponse(<div style={{width:"100%",height:"100%",display:"flex",flexDirection:"column",justifyContent:"center",padding:"0 110px",background:"#09111e",color:"#f2f5fa",fontFamily:"sans-serif",position:"relative",overflow:"hidden"}}><div style={{position:"absolute",inset:0,display:"flex",background:"radial-gradient(ellipse at 79% 48%, rgba(54,114,196,.25), transparent 42%)"}} /><div style={{position:"absolute",inset:0,display:"flex",backgroundImage:"linear-gradient(rgba(145,166,197,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(145,166,197,.045) 1px,transparent 1px)",backgroundSize:"54px 54px"}} /><div style={{position:"relative",display:"flex",alignItems:"center",gap:16,color:"#eef3f9",fontSize:26,fontWeight:700}}><div style={{display:"flex",width:35,height:35,border:"2px solid #79b5ff",borderRadius:9}} />pixelforge<span style={{color:"#79b5ff"}}>.</span></div><div style={{position:"relative",display:"flex",flexDirection:"column",marginTop:53,fontSize:66,fontWeight:600,lineHeight:1.13}}><span>Digital with a</span><span style={{color:"#79b5ff"}}>little more thought.</span></div><div style={{position:"relative",marginTop:24,color:"#a5b1c2",fontSize:20}}>An independent digital studio. Fictional portfolio concept.</div></div>,size);
+}

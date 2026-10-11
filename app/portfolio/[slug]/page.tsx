@@ -1,0 +1,14 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import { projects, getProject } from "@/lib/projects";
+
+export function generateStaticParams() { return projects.map(({slug})=>({slug})); }
+export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata> { const {slug}=await params; const project=getProject(slug); if(!project)return{title:"Project not found"}; return{title:`${project.name} · Portfolio`,description:`${project.summary} A clearly labelled fictional PixelForge Studio concept project.`}; }
+
+export default async function ProjectDetailsPage({params}:{params:Promise<{slug:string}>}) {
+  const {slug}=await params; const project=getProject(slug); if(!project)notFound();
+  const currentIndex=projects.findIndex(({slug:projectSlug})=>projectSlug===project.slug); const nextProject=projects[(currentIndex+1)%projects.length];
+  return <><header className="page-intro"><div className="container project-detail-head"><Link href="/portfolio" className="project-back"><ArrowLeft size={14} /> Back to selected work</Link><p className="eyebrow"><span className="eyebrow-dot" />Fictional concept project <span aria-hidden="true">·</span> {project.category}</p><h1>{project.name}</h1><p>{project.summary}</p><p className="project-detail-client">{project.client} <span aria-hidden="true">·</span> {project.year}</p></div></header><article className="container page-content"><div className="project-detail-image" role="img" aria-label={project.imageAlt} style={{ backgroundImage:`linear-gradient(180deg, transparent 53%, rgba(7,15,28,.2) 100%), url("${project.image}")` }} /><div className="project-story-layout"><aside className="project-story-meta" aria-label="Project information"><div className="story-meta-item"><span>Project type</span><p>{project.category}</p></div><div className="story-meta-item"><span>Year</span><p>{project.year}</p></div><div className="story-meta-item"><span>Fictional client</span><p>{project.client}</p></div><div className="story-meta-item"><span>Technology</span><p>{project.stack.join(", ")}</p></div></aside><div className="story-copy"><section><h2>The brief</h2><p>{project.problem}</p></section><section><h2>Our approach</h2><p>{project.approach}</p></section><section><h2>What we explored</h2><ul className="feature-list">{project.features.map(feature=><li key={feature}><CheckCircle2 size={15} />{feature}</li>)}</ul></section><section><h2>Built with</h2><div className="service-detail-tags">{project.stack.map(technology=><span key={technology}>{technology}</span>)}</div></section></div></div><div className="project-next"><Link href="/portfolio"><ArrowLeft size={14} /> All concept work</Link><Link href={`/portfolio/${nextProject.slug}`}>Next project: {nextProject.name} <ArrowRight size={14} /></Link></div></article></>;
+}

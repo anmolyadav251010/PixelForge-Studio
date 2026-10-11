@@ -1,0 +1,16 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight, Bot, Braces, ChartNoAxesCombined, Compass, MousePointerClick } from "lucide-react";
+
+export const metadata: Metadata = { title:"Services", description:"Explore web development, full-stack applications, UI/UX design, automation, and SEO at PixelForge Studio, a fictional independent digital studio." };
+const services = [
+  { name:"Web development", icon:Braces, text:"Fast, durable websites built to feel just as considered as the businesses behind them. From a one-page introduction to a content-rich publication, we care about the details that make a digital home feel right.", tags:["Next.js & React","CMS builds","E-commerce","Accessibility"] },
+  { name:"Full-stack applications", icon:Compass, text:"Practical digital products, designed and engineered around the real job they need to do. Thoughtful experiences on the surface, reliable data and architecture underneath.", tags:["Product thinking","API design","Database architecture","Prototyping"] },
+  { name:"UI/UX design", icon:MousePointerClick, text:"Useful interfaces start by paying attention. We bring structure, clarity, and a strong point of view to products people feel good using.", tags:["User flows","Interface design","Design systems","Accessibility"] },
+  { name:"Automation", icon:Bot, text:"Good automation quietly gives time back. We connect repetitive tasks and existing tools, carefully, so people can spend more time on work that needs a human.", tags:["Workflow design","API integrations","Internal tools","Data pipelines"] },
+  { name:"SEO", icon:ChartNoAxesCombined, text:"A useful website deserves to be found. We bring strong technical foundations, clear content structure, and careful attention to the things that help real people find you.", tags:["Technical SEO","Structured data","Site performance","Content architecture"] },
+];
+
+export default function ServicesPage() {
+  return <><header className="page-intro"><div className="container"><p className="eyebrow"><span className="eyebrow-dot" />Services</p><h1>A little bit of everything. Nothing by accident.</h1><p>Design, development, and thoughtful in-between work to help make your next useful thing real.</p></div></header><div className="container page-content" aria-label="Studio services">{services.map(({name,icon:Icon,text,tags},index)=><article className="service-detail" key={name}><div className="service-detail-icon"><Icon size={17} strokeWidth={1.6} /></div><p className="service-detail-number">0{index+1}</p><div className="service-detail-body"><h2>{name}</h2><p>{text}</p><div className="service-detail-tags">{tags.map(tag=><span key={tag}>{tag}</span>)}</div></div></article>)}<div className="cta-band"><div><p className="eyebrow"><span className="eyebrow-dot" />Looking for a good fit?</p><h2>Let&apos;s talk through what you need.</h2></div><Link className="button button-primary" href="/contact">Get in touch <ArrowRight size={15} /></Link></div></div></>;
+}
